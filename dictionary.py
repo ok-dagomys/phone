@@ -1,7 +1,6 @@
 import asyncio
 import filecmp
 import os
-# import os.path
 import shutil
 from datetime import datetime
 
@@ -15,7 +14,7 @@ date = datetime.now().strftime('%Y-%m-%d')
 time = datetime.now().strftime('%H:%M:%S')
 
 
-async def phone_dictionary(greet):
+async def phone_dictionary():
     try:
         if not os.path.exists(dst) or not filecmp.cmp(src, dst):
             shutil.copy2(src, dst, follow_symlinks=False)
@@ -56,11 +55,12 @@ async def phone_dictionary(greet):
             for name in df.columns:
                 column_filter(name)
 
-            # df.to_sql(con=cfg.connection, name='dictionary', if_exists='replace')
-
-            # await cfg.bot.send_message(cfg.bot_id, greet)
-            print(df)
             await asyncio.sleep(1)
 
     except Exception as ex:
         print(f'({date} {time}) Dictionary-Error: {ex}')
+
+
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
+loop.run_until_complete(phone_dictionary())
