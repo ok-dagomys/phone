@@ -14,7 +14,7 @@ date = datetime.now().strftime('%Y-%m-%d')
 time = datetime.now().strftime('%H:%M:%S')
 
 
-async def phone_dictionary():
+async def dictionary_request():
     try:
         if not os.path.exists(dst) or not filecmp.cmp(src, dst):
             shutil.copy2(src, dst, follow_symlinks=False)
@@ -63,4 +63,4 @@ async def phone_dictionary():
 
 loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)
-loop.run_until_complete(phone_dictionary())
+loop.run_until_complete(dictionary_request())

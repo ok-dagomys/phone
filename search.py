@@ -1,4 +1,3 @@
-import cfg
 
 
 def caller_recognition(caller, number):
