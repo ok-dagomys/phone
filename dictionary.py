@@ -1,17 +1,27 @@
-import cfg
-import shutil
-import pandas
+import asyncio
 import filecmp
-import os.path
+import os
+# import os.path
+import shutil
+from datetime import datetime
+
+import pandas
+from dotenv import load_dotenv
+
+load_dotenv()
+dst = os.getenv('DST')
+src = os.getenv('SRC')
+date = datetime.now().strftime('%Y-%m-%d')
+time = datetime.now().strftime('%H:%M:%S')
 
 
 async def phone_dictionary(greet):
     try:
-        if not os.path.exists(cfg.dst) or not filecmp.cmp(cfg.src, cfg.dst):
-            shutil.copy2(cfg.src, cfg.dst, follow_symlinks=False)
+        if not os.path.exists(dst) or not filecmp.cmp(src, dst):
+            shutil.copy2(src, dst, follow_symlinks=False)
             filecmp.clear_cache()
 
-            xl = pandas.ExcelFile(cfg.dst)
+            xl = pandas.ExcelFile(dst)
 
             sheets = xl.sheet_names
             sheets.remove('Тетьково')
@@ -46,10 +56,11 @@ async def phone_dictionary(greet):
             for name in df.columns:
                 column_filter(name)
 
-            df.to_sql(con=cfg.connection, name='dictionary', if_exists='replace')
+            # df.to_sql(con=cfg.connection, name='dictionary', if_exists='replace')
 
-            await cfg.bot.send_message(cfg.bot_id, greet)
-            await cfg.asyncio.sleep(1)
+            # await cfg.bot.send_message(cfg.bot_id, greet)
+            print(df)
+            await asyncio.sleep(1)
 
     except Exception as ex:
-        print(f'({cfg.date} {cfg.time}) Dictionary-Error: {ex}')
+        print(f'({date} {time}) Dictionary-Error: {ex}')
