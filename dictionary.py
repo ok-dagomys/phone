@@ -56,6 +56,7 @@ async def dictionary_request():
                 column_filter(name)
 
             await asyncio.sleep(1)
+            return df
 
     except Exception as ex:
         print(f'({date} {time}) Dictionary-Error: {ex}')
