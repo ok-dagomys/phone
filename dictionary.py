@@ -61,6 +61,10 @@ async def dictionary_request():
         print(f'({date} {time}) Dictionary-Error: {ex}')
 
 
-loop = asyncio.new_event_loop()
-asyncio.set_event_loop(loop)
-loop.run_until_complete(dictionary_request())
+async def request():
+    task = asyncio.create_task(dictionary_request())
+    await task
+    await asyncio.sleep(0.1)
+
+
+asyncio.run(request())
