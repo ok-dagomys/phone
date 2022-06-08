@@ -9,6 +9,7 @@ python = "^3.10"
 pandas = "^1.4.2"
 python-dotenv = "^0.20.0"
 openpyxl = "^3.0.10"
+tqdm = "^4.64.0"
 
 [tool.poetry.dev-dependencies]
 
