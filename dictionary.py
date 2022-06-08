@@ -38,10 +38,7 @@ async def check_phonebook():
 
 
 async def filter_phonebook():
-    await check_phonebook()
-
     xl = pandas.ExcelFile(dst)
-
     sheets = xl.sheet_names
     sheets.remove('Тетьково')
 
