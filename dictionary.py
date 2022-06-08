@@ -29,9 +29,12 @@ async def check_phonebook():
                 pbar.set_description("Copying...")
         filecmp.clear_cache()
 
-        logging.info('Phonebook updated')
+        status = 'Phonebook updated'
+        logging.info(status)
     else:
-        logging.info('Phonebook is actual')
+        status = 'Phonebook is actual'
+        logging.info(status)
+    return status
 
 
 async def filter_phonebook():
@@ -105,6 +108,5 @@ async def caller_recognition(caller, number):
 async def start():
     await check_phonebook()
     await asyncio.sleep(0.1)
-
 
 asyncio.run(start())
